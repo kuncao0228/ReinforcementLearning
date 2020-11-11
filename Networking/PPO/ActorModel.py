@@ -15,7 +15,7 @@ class ContinuousActor(nn.Module):
 
 
 	def forward(self, state):
-		x = F.relu(self.hidden(state))
+		x = F.relu(self.fc(state))
 		mu = torch.tanh(self.mu(x))
 		log_std = torch.tanh(self.log_std(x))
 
@@ -25,21 +25,4 @@ class ContinuousActor(nn.Module):
 		action = dist.sample()
 		return action, dist
 
-class Critic(nn.Module):
-	def __init(self, input_dim):
-		super(Critic, self).__init__()
-		self.fc = nn.Linear(input_dim, 64)
-		self.out = nn.Linear(64, 1)
-
-
-	def forward(self, state):
-		x = F.relu(self.hidden(state))
-		value = self.out(x)
-
-		return value
-
-def init_weights(m):
-    if type(m) in (nn.Linear, nn.Conv2d):
-        torch.nn.init.xavier_uniform(m.weight)
-        m.bias.data.fill_(0.0)
 
