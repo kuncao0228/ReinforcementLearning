@@ -31,9 +31,11 @@ class Memory:
 		self.values = []
 
 class PPOAgent(object):
-	def __init__(self, env, actor_lr=1e-4, critic_lr=5e-4):
+	def __init__(self, env, observ_dim, actor_lr=1e-4, critic_lr=5e-4):
 		self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
 		print("device:", self.device)
 		self.env = env
+
+		self.observ_dim = observ_dim
 
         
